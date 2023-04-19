@@ -29,9 +29,9 @@ export const Navbar = () => {
         </NavLink>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: "flex", justifyContent: "center",alignItems: "center" }}>
           <NavLink to="/" style={{textDecoration: "none", color: "white", marginLeft: "2vw", marginRight: "2vw"}}> Todos </NavLink>
-          <NavLink to="/category/clubes" style={{textDecoration: "none", color: "white", marginLeft: "2vw", marginRight: "2vw"}}>  Clubes  </NavLink>
-          <NavLink to="/category/selecciones" style={{textDecoration: "none", color: "white", marginLeft: "2vw", marginRight: "2vw"}}>  Selecciones  </NavLink>
-          <NavLink to="/category/shores" style={{textDecoration: "none", color: "white", marginLeft: "2vw", marginRight: "2vw"}}>  Shores </NavLink>
+          <NavLink to="/category/Clubes" style={{textDecoration: "none", color: "white", marginLeft: "2vw", marginRight: "2vw"}}>  Clubes  </NavLink>
+          <NavLink to="/category/Selecciones" style={{textDecoration: "none", color: "white", marginLeft: "2vw", marginRight: "2vw"}}>  Selecciones  </NavLink>
+          <NavLink to="/category/Shores" style={{textDecoration: "none", color: "white", marginLeft: "2vw", marginRight: "2vw"}}>  Shores </NavLink>
         </Typography>
 
         <div style={{marginLeft:"3vw", marginRight: "1vw"}}>
