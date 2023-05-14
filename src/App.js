@@ -4,11 +4,12 @@ import { Footer } from "./components/Footer/Footer";
 import { ItemDetailContainer } from "./components/ItemDetailContainer/ItemDetailContainer";
 import { ItemListContainer } from "./components/ItemListContainer/ItemListContainer";
 import {Navbar} from "./components/Navbar/Navbar";
+import { CartContextProvider } from "./context/CartContext";
 
 function App() {
   return (
     <BrowserRouter>
-
+      <CartContextProvider>
       <Navbar />
 
       <Routes>
@@ -20,6 +21,8 @@ function App() {
       </Routes>
       
       <Footer />
+
+      </CartContextProvider>
 
     </BrowserRouter>
   );

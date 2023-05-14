@@ -3,6 +3,8 @@ import PhonelinkRoundedIcon from '@mui/icons-material/PhonelinkRounded';
 import { CartWidget } from "../CartWidget/CartWidget";
 import { NavLink } from "react-router-dom";
 
+import "./Navbar.css"
+
 export const Navbar = () => {
   return (
     <AppBar position="sticky" color="primary" sx={{mb: 5}} >
@@ -28,10 +30,10 @@ export const Navbar = () => {
           </Typography>
         </NavLink>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: "flex", justifyContent: "center",alignItems: "center" }}>
-          <NavLink to="/" style={{textDecoration: "none", color: "white", marginLeft: "2vw", marginRight: "2vw"}}> Inicio </NavLink>
-          <NavLink to="/category/Clubes" style={{textDecoration: "none", color: "white", marginLeft: "2vw", marginRight: "2vw"}}>  Clubes  </NavLink>
-          <NavLink to="/category/Selecciones" style={{textDecoration: "none", color: "white", marginLeft: "2vw", marginRight: "2vw"}}>  Selecciones  </NavLink>
-          <NavLink to="/category/Shores" style={{textDecoration: "none", color: "white", marginLeft: "2vw", marginRight: "2vw"}}>  Shores </NavLink>
+          <NavLink to="/" className={({ isActive }) => isActive ? "navbar-item active-navbar-item" : "navbar-item unactive-navbar-item"} > Todos </NavLink>
+          <NavLink to="/category/auriculares" className={({ isActive }) => isActive ? "navbar-item active-navbar-item" : "navbar-item unactive-navbar-item"} >  Auriculares  </NavLink>
+          <NavLink to="/category/notebooks" className={({ isActive }) => isActive ? "navbar-item active-navbar-item" : "navbar-item unactive-navbar-item"} >  Notebooks  </NavLink>
+          <NavLink to="/category/procesadores" className={({ isActive }) => isActive ? "navbar-item active-navbar-item" : "navbar-item unactive-navbar-item"} >  Procesadores  </NavLink>
         </Typography>
 
         <div style={{marginLeft:"3vw", marginRight: "1vw"}}>
