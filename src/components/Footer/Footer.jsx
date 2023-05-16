@@ -20,7 +20,7 @@ export const Footer = () => {
             textDecoration: 'none',
           }}
         >
-          Copyright &copy; TiendaFootball90s
+          Copyright &copy; TiendaTecnoBitByBit
         </Typography>
 
         <Typography variant="body1" component="div" sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "20px" }}>

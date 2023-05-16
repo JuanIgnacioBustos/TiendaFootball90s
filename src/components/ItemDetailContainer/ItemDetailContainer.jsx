@@ -1,8 +1,13 @@
-import { Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { ItemCount } from "../ItemCount/ItemCount"
-import { products } from "../../productsMock"
+import { ItemDetail } from "../ItemDetail/ItemDetail"
+import { useContext } from "react"
+import { CartContext } from "../../context/CartContext"
+import { toast } from 'react-toastify';
+import { db } from "../../firebaseConfig"
+import { collection, doc, getDoc } from "firebase/firestore"
+import { NotFound } from "../NotFound/NotFound"
+import { CircularProgress } from "@mui/material"
 
 export const ItemDetailContainer = () => {
 
@@ -10,31 +15,65 @@ export const ItemDetailContainer = () => {
 
   const [product, setProduct] = useState({})
 
+  const [productNotFound, setProductNotFound] = useState(false)
+
+  const { addToCart, getQuantityById } = useContext( CartContext )
+
+  const onAdd = ( cantidad ) => {
+    const obj = {
+      ...product,
+      quantity: cantidad
+    }
+
+    addToCart(obj)
+
+    fireToast()
+  }
+
+  const fireToast = () => {
+    toast.success('El producto se agrego al carrito', {
+      position: "bottom-right",
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+      theme: "colored",
+    });
+  }
+  const quantity = getQuantityById(product.id)
+
   useEffect (() => {
-    setProduct(products.find( prod => prod.id === Number(id) ))
+
+    const itemCollection = collection(db, "products")
+
+    const ref = doc(itemCollection, id)
+
+    getDoc(ref)
+      .then( (res) => {
+        
+        if (!res.data()) {
+          setProductNotFound(true)
+        }
+        
+        setProduct({
+          ...res.data(),
+          id: res.id
+        })
+
+      })
+      .catch( (err) => {
+        console.log(err)
+      })
+
   }, [id])
 
+  if (Object.keys(product).length === 0) {
+    return <CircularProgress size="10vh" style={{alignSelf: "center", marginTop: "auto", marginBottom: "auto"}} />
+  }
+
   return (
-    <Card sx={{ maxWidth: 400, mb: 5 }} style={{display: 'flex', flexDirection: 'column', alignSelf: 'center'}}>
-      <CardMedia
-        component="img"
-        height="400"
-        image={product.img}
-      />
-      <CardContent style={{display: "flex", flexDirection: "column", height: "100%"}}>
-        <Typography gutterBottom variant="body1" component="div" align="center" style={{marginBottom: "15px"}}>
-          {product.title}
-        </Typography>
-        <Typography gutterBottom variant="body1" component="div" align="center" style={{marginBottom: "15px"}}>
-          {product.description}
-        </Typography>
-        <Typography variant="h6" color="text.secondary" align="center" style={{marginTop: "auto"}}>
-          ${product.price}
-        </Typography>
-      </CardContent>
-      <CardActions style={{display: "flex", flexDirection: "column"}}>
-          <ItemCount initial={1} stockInicial={product.stock} productName={product.title} />
-      </CardActions>
-    </Card>
+    productNotFound ? <NotFound /> : <ItemDetail product={product} onAdd={onAdd} quantity={quantity} />
   )
 }
